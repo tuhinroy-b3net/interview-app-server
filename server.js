@@ -10,6 +10,7 @@ const AuthRouter = require("./router/authRouter")
 const UserRouter = require("./router/userRouter")
 const ExamRouter = require("./router/examRouter")
 const app = express();
+const path = require("path");
 const {getQuestionAnswer} = require("./controller/examcontroller")
 
 
@@ -18,7 +19,7 @@ db_connection(process.env.DBURL)
 
 
 
-// GetQuestionAnswer()
+
 
 app.use(morgan("dev"));
 
@@ -32,12 +33,19 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.send("Express API is running ✅");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+app.get("/terms", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "terms.html"));
+});
+app.get("/privacypolicy", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "privacypolicy.html"));
+});
+
+
 
 app.use('/api/v1/auth',AuthRouter)
 app.use('/api/v1/user',UserRouter)

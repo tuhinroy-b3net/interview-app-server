@@ -182,51 +182,51 @@ exports.getMcqQuestionAnswer = async (req, res, next) => {
     });
   }
   try {
-    const response = await client.chat.completions.create({
-      model: 'gpt-4o',
+    // const response = await client.chat.completions.create({
+    //   model: 'gpt-4o',
 
-      response_format: { type: 'json_object' },
-      messages: [
-        {
-          role: 'system',
-          content: `You are a senior ${fieldName}  interviewer.
-          Output a JSON object containing an array called "questions".
-          Each question MUST follow this exact schema:
-          {
-            "id": "string",
-            "question": "string",
-            "options": [
-              { "id": "a", "text": "string" },
-              { "id": "b", "text": "string" },
-              { "id": "c", "text": "string" },
-              { "id": "d", "text": "string" }
-            ],
-            "correctOptionId": "string",
-            "correctAnswer": "string",
-            "questionNumber": number,
-            "difficulty": "easy|medium|hard",
-            "topic": "string"
-          }`,
-        },
-        {
-          role: 'user',
-          content: `Generate ${questionCount} ${lavel} level MCQ questions for a ${fieldName} job interview focusing on ${skill}`,
-          max_tokens: 200,
-        },
-      ],
-    });
+    //   response_format: { type: 'json_object' },
+    //   messages: [
+    //     {
+    //       role: 'system',
+    //       content: `You are a senior ${fieldName}  interviewer.
+    //       Output a JSON object containing an array called "questions".
+    //       Each question MUST follow this exact schema:
+    //       {
+    //         "id": "string",
+    //         "question": "string",
+    //         "options": [
+    //           { "id": "a", "text": "string" },
+    //           { "id": "b", "text": "string" },
+    //           { "id": "c", "text": "string" },
+    //           { "id": "d", "text": "string" }
+    //         ],
+    //         "correctOptionId": "string",
+    //         "correctAnswer": "string",
+    //         "questionNumber": number,
+    //         "difficulty": "easy|medium|hard",
+    //         "topic": "string"
+    //       }`,
+    //     },
+    //     {
+    //       role: 'user',
+    //       content: `Generate ${questionCount} ${lavel} level MCQ questions for a ${fieldName} job interview focusing on ${skill}`,
+    //       max_tokens: 200,
+    //     },
+    //   ],
+    // });
 
-    const data = JSON.parse(response.choices[0].message.content);
-    res.status(200).json({
-      data: data.questions,
-      success: true,
-      message: 'questions fetched successfully',
-    });
+    // const data = JSON.parse(response.choices[0].message.content);
     // res.status(200).json({
-    //   data: Demoquestion,
+    //   data: data.questions,
     //   success: true,
     //   message: 'questions fetched successfully',
     // });
+    res.status(200).json({
+      data: Demoquestion,
+      success: true,
+      message: 'questions fetched successfully',
+    });
   } catch (error) {
     console.log(error);
   }

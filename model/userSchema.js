@@ -104,6 +104,8 @@ const userSchema = new mongoose.Schema(
     },
 
     resume: resumeSchema,
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   {
     timestamps: true,
